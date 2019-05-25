@@ -36,12 +36,20 @@ require_once "../DAO/FornecedoresDAO.php";
                 }if($type==0){
                     $itens = $ObjBDCat->listarCategorias($vConn, $type, "");
                     include 'CategoriasListUI.php';
-                }else if($type==2){
+
+                }else if($type==1){
+                    $nome=$_GET['HTML_busca'];
+                    $itens = $ObjBDCat->listarCategorias($vConn, $type, $nome);
+                    include 'CategoriasListUI.php';
+                }
+                else if($type==2){
                     $id = $_GET['id'];
                     $objCate = new Categorias();
                     $objCate = $ObjBDCat->DetalhesCategorias($vConn, $id);
                     include 'CategoDetalhes.php';
                 }else if($type==3){
+                    include 'CategoriasFormUI.php';
+                }else if($type==4){
                     include 'CategoriasFormUI.php';
                 }
 

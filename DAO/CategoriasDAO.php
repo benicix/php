@@ -9,7 +9,7 @@ class CategoriasDAO {
        if($tmpTipo == 0){
 			$rsCategorias = mysqli_query($tmpConn, "Select * from categories");
 	   }else{
-        	$rsCategorias = mysqli_query($tmpConn, "Select * from categories where categoryID = '$tmpCod'");
+        	$rsCategorias = mysqli_query($tmpConn, "Select * from categories where CategoryName like '%$tmpCod%'");
 	   }
 	   
         $itens = new ArrayObject();
@@ -27,15 +27,25 @@ class CategoriasDAO {
         return $itens;
     }
 
-    function addCategoria($tmpConn,$obj) {
+    function alterarCategoria($tmpConn,$obj) {
         
-        $tmpConn->exec("set names utf8");
+        //$tmpConn->exec("set names utf8");
         
         $nome = $obj->getNome();
         $desc = $obj->getDesc();
+        $cod = $obj->getCod();
         
-        $conn->exec("Call inserirCategoria('$nome','$desc')");
+
         
+        //$conn->exec("Call inserirCategoria('$nome','$desc')");
+        mysqli_query($tmpConn,"Update categories set description = '$desc', CategoryName='$nome' where CategoryID = '$cod'") or die(mysqli_error($tmpConn));        
+    }
+    function AddCategoria($vConn, $tmpCate){
+        $nome=$tmpCate->getNome();
+        $desc=$tmpCate->getDesc();
+        $cod=$tmpCate->getCod();
+        mysqli_query($vConn, "insert into categories(CategoryName, Description, CategoryID) values('$nome', '$desc','$cod')") or die (mysqli_error($vConn));
+
     }
     
     function DetalhesCategorias($vConn, $id)
@@ -50,6 +60,10 @@ class CategoriasDAO {
         $objCategoria->setNome($tblCategoria['CategoryName']);
 
         return $objCategoria;
+    }
+    function DeletarCategoria($vConn, $tmpCategoria){
+        mysqli_query($vConn, "delete from categories where CategoryID = '$tmpCategoria'") or die (mysqli_error($vConn));
+        
     }
     
     

@@ -40,7 +40,7 @@
                         <td><font class="FntData"><?=$itens[$i]->getDesc();?></font></td>
                         <td class="actions">
                             <a class="btn btn-warning" href="CategoriasUI.php?type=3&dados=1&id=<?=$itens[$i]->getCod();?>">editar</a>
-                            <a class="btn btn-danger" href="CategoriasUI.php?type=4&id=<?=$itens[$i]->getCod();?>">excluir</a>
+                            <a class="btn btn-danger" href="CategoriasUI.php?type=4&dados=2&id=<?=$itens[$i]->getCod();?>">excluir</a>
                         </td>
                     </tr>
                     <?php
